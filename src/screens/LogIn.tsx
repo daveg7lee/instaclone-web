@@ -1,7 +1,11 @@
 import React from 'react';
 
-const LogIn = () => {
-  return <h1>Log In</h1>;
+const LogIn = ({ setIsLoggedIn }: any) => {
+  return (
+    <div>
+      <button onClick={() => setIsLoggedIn(true)}>Log In</button>
+    </div>
+  );
 };
 
 export default LogIn;
