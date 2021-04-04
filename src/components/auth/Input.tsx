@@ -1,5 +1,5 @@
 interface InputProps {
-  type: 'text' | 'password';
+  type: 'text' | 'password' | 'email';
   placeholder: string;
 }
 

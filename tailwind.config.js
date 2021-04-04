@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         instaGray: '#fafafa',
-        instadarkGray: '#8e8e8e',
+        instadarkGray: 'rgb(142, 142, 142)',
         accent: '#0095f6',
         facebookBlue: '#385285',
         borderColor: 'rgb(219, 219, 219)',
