@@ -17,7 +17,7 @@ code {
     monospace;
 }
 
-.whiteBox {
+.baseBox {
   @apply bg-white border-borderColor border w-full;
 }
 

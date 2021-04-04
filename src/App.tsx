@@ -1,6 +1,7 @@
 import { useReactiveVar } from '@apollo/client';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { isLoggedInVar } from './apollo';
+import routes from './routes';
 import Home from './screens/Home';
 import LogIn from './screens/LogIn';
 import NotFound from './screens/NotFound';
@@ -12,11 +13,11 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route path="/" exact>
+          <Route path={routes.home} exact>
             {isLoggedIn ? <Home /> : <LogIn />}
           </Route>
           {!isLoggedIn && (
-            <Route path="/sign-up">
+            <Route path={routes.signUp}>
               <SignUp />
             </Route>
           )}
