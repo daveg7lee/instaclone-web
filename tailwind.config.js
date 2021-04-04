@@ -2,11 +2,37 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: 'media', // or 'media' or 'class'
   theme: {
-    colors: {
-      light: '#2c2c2c',
-      dark: 'lightgray',
-      bgLight: 'lightgray',
-      bgDark: '#2c2c2c',
+    extend: {
+      colors: {
+        instaGray: '#fafafa',
+        instaBlue: '#0095f6',
+        instadarkGray: '#8e8e8e',
+        facebookBlue: '#385285',
+      },
+      width: {
+        '1/7': '14.2857143%',
+        '2/7': '28.5714286%',
+        '3/7': '42.8571429%',
+        '4/7': '57.1428571%',
+        '5/7': '71.4285714%',
+        '6/7': '85.7142857%',
+        85: '23rem',
+      },
+      height: {
+        '1px': '1px',
+      },
+      borderWidth: {
+        DEFAULT: '1px',
+        0: '0',
+        0.5: '0.5px',
+        2: '2px',
+        3: '3px',
+        4: '4px',
+        5: '5px',
+        6: '6px',
+        8: '8px',
+        9: '9px',
+      },
     },
   },
   variants: {
