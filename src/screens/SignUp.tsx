@@ -8,10 +8,13 @@ import AuthLayout from '../components/auth/AuthLayout';
 import Input from '../components/auth/Input';
 import FormBox from '../components/auth/FormBox';
 import BottomBox from '../components/auth/BottomBox';
+import { Helmet } from 'react-helmet-async';
+import PageTitle from '../components/PageTitle';
 
 const SignUp = () => {
   return (
     <AuthLayout>
+      <PageTitle title="Sign Up" />
       <FormBox>
         <div className="allCenter flex-col">
           <FontAwesomeIcon icon={faInstagram} size="3x" />

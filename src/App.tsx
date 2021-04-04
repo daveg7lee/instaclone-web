@@ -1,4 +1,5 @@
 import { useReactiveVar } from '@apollo/client';
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { isLoggedInVar } from './apollo';
 import routes from './routes';
@@ -10,7 +11,7 @@ import SignUp from './screens/SignUp';
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   return (
-    <div>
+    <HelmetProvider>
       <Router>
         <Switch>
           <Route path={routes.home} exact>
@@ -26,7 +27,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </HelmetProvider>
   );
 }
 

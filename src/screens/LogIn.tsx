@@ -8,10 +8,12 @@ import AuthLayout from '../components/auth/AuthLayout';
 import Input from '../components/auth/Input';
 import FormBox from '../components/auth/FormBox';
 import BottomBox from '../components/auth/BottomBox';
+import PageTitle from '../components/PageTitle';
 
 const LogIn = () => {
   return (
     <AuthLayout>
+      <PageTitle title="Log In" />
       <FormBox>
         <div>
           <FontAwesomeIcon icon={faInstagram} size="3x" />
