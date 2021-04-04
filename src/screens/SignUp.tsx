@@ -5,10 +5,8 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import Divider from '../components/auth/Divider';
 import AuthLayout from '../components/auth/AuthLayout';
-import Input from '../components/auth/Input';
 import FormBox from '../components/auth/FormBox';
 import BottomBox from '../components/auth/BottomBox';
-import { Helmet } from 'react-helmet-async';
 import PageTitle from '../components/PageTitle';
 
 const SignUp = () => {
@@ -28,10 +26,10 @@ const SignUp = () => {
         </div>
         <Divider />
         <form className="w-full allCenter flex-col">
-          <Input type="email" placeholder="Email" />
-          <Input type="text" placeholder="Full Name" />
-          <Input type="text" placeholder="Username" />
-          <Input type="password" placeholder="Password" />
+          <input type="email" placeholder="Email" className="input" />
+          <input type="text" placeholder="Full Name" className="input" />
+          <input type="text" placeholder="Username" className="input" />
+          <input type="password" placeholder="Password" className="input" />
           <input
             value="Sign Up"
             type="submit"
