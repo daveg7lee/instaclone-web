@@ -4,6 +4,7 @@ import { isLoggedInVar } from './apollo';
 import Home from './screens/Home';
 import LogIn from './screens/LogIn';
 import NotFound from './screens/NotFound';
+import SignUp from './screens/SignUp';
 
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
@@ -14,6 +15,11 @@ function App() {
           <Route path="/" exact>
             {isLoggedIn ? <Home /> : <LogIn />}
           </Route>
+          {!isLoggedIn && (
+            <Route path="/sign-up">
+              <SignUp />
+            </Route>
+          )}
           <Route>
             <NotFound />
           </Route>
