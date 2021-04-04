@@ -26,10 +26,26 @@ const SignUp = () => {
         </div>
         <Divider />
         <form className="w-full allCenter flex-col">
-          <input type="email" placeholder="Email" className="input" />
-          <input type="text" placeholder="Full Name" className="input" />
-          <input type="text" placeholder="Username" className="input" />
-          <input type="password" placeholder="Password" className="input" />
+          <input
+            type="email"
+            placeholder="Email"
+            className="input border-borderColor"
+          />
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="input border-borderColor"
+          />
+          <input
+            type="text"
+            placeholder="Username"
+            className="input border-borderColor"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="input border-borderColor"
+          />
           <input
             value="Sign Up"
             type="submit"

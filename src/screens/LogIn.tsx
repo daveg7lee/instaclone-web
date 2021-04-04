@@ -8,7 +8,8 @@ import AuthLayout from '../components/auth/AuthLayout';
 import FormBox from '../components/auth/FormBox';
 import BottomBox from '../components/auth/BottomBox';
 import PageTitle from '../components/PageTitle';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import FormError from '../components/auth/FormError';
 
 interface IForm {
   username: string;
@@ -16,12 +17,11 @@ interface IForm {
 }
 
 const LogIn = () => {
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, handleSubmit, formState, errors } = useForm<IForm>({
+    mode: 'onChange',
+  });
   const onSubmitValid: SubmitHandler<IForm> = (data) => {
-    console.log('Valid', data);
-  };
-  const onSubmitInvalid: SubmitErrorHandler<IForm> = (data) => {
-    console.log('Invalid', data);
+    //console.log('Valid', data);
   };
   return (
     <AuthLayout>
@@ -32,18 +32,26 @@ const LogIn = () => {
         </div>
         <form
           className="mt-9 w-full allCenter flex-col"
-          onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}
+          onSubmit={handleSubmit(onSubmitValid)}
         >
           <input
             ref={register({
               required: 'Username is required.',
-              minLength: 5,
+              minLength: {
+                value: 5,
+                message: 'Username should be longer than 5 chars.',
+              },
             })}
             name="username"
             type="text"
             placeholder="Username"
-            className="input"
+            className={
+              Boolean(errors?.username?.message)
+                ? 'input border-red-400'
+                : 'input border-borderColor'
+            }
           />
+          <FormError message={errors?.username?.message} />
           <input
             ref={register({
               required: 'Password is required.',
@@ -51,13 +59,19 @@ const LogIn = () => {
             name="password"
             type="password"
             placeholder="Password"
-            className="input"
+            className={
+              Boolean(errors?.password?.message)
+                ? 'input border-red-400'
+                : 'input border-borderColor'
+            }
             autoComplete="on"
           />
+          <FormError message={errors?.password?.message} />
           <input
             value="Log In"
             type="submit"
-            className="w-full blueButton mt-3 py-2 font-semibold"
+            disabled={!formState.isValid}
+            className="blueButton mt-3 py-2 font-semibold"
           />
         </form>
         <Divider />
