@@ -13,6 +13,7 @@ import FormError from '../components/auth/FormError';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { logIn } from '../__generated__/logIn';
+import { logUserIn } from '../apollo';
 
 interface IForm {
   username: string;
@@ -38,6 +39,7 @@ const LogIn = () => {
     errors,
     getValues,
     setError,
+    clearErrors,
   } = useForm<IForm>({
     mode: 'onChange',
   });
@@ -46,9 +48,12 @@ const LogIn = () => {
       logIn: { success, error, token },
     } = data;
     if (!success) {
-      setError('result', {
+      return setError('result', {
         message: error,
       });
+    }
+    if (token) {
+      logUserIn(token);
     }
   };
   const [logIn, { loading }] = useMutation(LOGIN_MUTATION, {
@@ -65,6 +70,9 @@ const LogIn = () => {
         password,
       },
     });
+  };
+  const clearLogInError = () => {
+    clearErrors('result');
   };
   return (
     <AuthLayout>
@@ -85,6 +93,7 @@ const LogIn = () => {
                 message: 'Username should be longer than 5 chars.',
               },
             })}
+            onChange={clearLogInError}
             name="username"
             type="text"
             placeholder="Username"
@@ -99,6 +108,7 @@ const LogIn = () => {
             ref={register({
               required: 'Password is required.',
             })}
+            onChange={clearLogInError}
             name="password"
             type="password"
             placeholder="Password"
