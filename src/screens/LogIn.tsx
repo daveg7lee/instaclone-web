@@ -10,18 +10,61 @@ import BottomBox from '../components/auth/BottomBox';
 import PageTitle from '../components/PageTitle';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import FormError from '../components/auth/FormError';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+import { logIn } from '../__generated__/logIn';
 
 interface IForm {
   username: string;
   password: string;
+  result: string;
 }
 
+const LOGIN_MUTATION = gql`
+  mutation logIn($username: String!, $password: String!) {
+    logIn(username: $username, password: $password) {
+      success
+      error
+      token
+    }
+  }
+`;
+
 const LogIn = () => {
-  const { register, handleSubmit, formState, errors } = useForm<IForm>({
+  const {
+    register,
+    handleSubmit,
+    formState,
+    errors,
+    getValues,
+    setError,
+  } = useForm<IForm>({
     mode: 'onChange',
   });
+  const onCompleted = (data: logIn) => {
+    const {
+      logIn: { success, error, token },
+    } = data;
+    if (!success) {
+      setError('result', {
+        message: error,
+      });
+    }
+  };
+  const [logIn, { loading }] = useMutation(LOGIN_MUTATION, {
+    onCompleted,
+  });
   const onSubmitValid: SubmitHandler<IForm> = (data) => {
-    //console.log('Valid', data);
+    if (loading) {
+      return;
+    }
+    const { username, password } = getValues();
+    logIn({
+      variables: {
+        username,
+        password,
+      },
+    });
   };
   return (
     <AuthLayout>
@@ -68,11 +111,12 @@ const LogIn = () => {
           />
           <FormError message={errors?.password?.message} />
           <input
-            value="Log In"
+            value={loading ? 'Loading...' : 'Log In'}
             type="submit"
-            disabled={!formState.isValid}
+            disabled={!formState.isValid || loading}
             className="blueButton mt-3 py-2 font-semibold"
           />
+          <FormError message={errors?.result?.message} />
         </form>
         <Divider />
         <div className="facebookLogin mt-2">
