@@ -79,7 +79,7 @@ const LogIn = () => {
       <PageTitle title="Log In" />
       <FormBox>
         <div>
-          <FontAwesomeIcon icon={faInstagram} size="3x" />
+          <FontAwesomeIcon icon={faInstagram} size="4x" />
         </div>
         <form
           className="mt-9 w-full allCenter flex-col"
