@@ -9,6 +9,7 @@ module.exports = {
         accent: '#0095f6',
         facebookBlue: '#385285',
         borderColor: 'rgb(219, 219, 219)',
+        notificationGreen: '#2ecc71',
       },
       width: {
         '1/7': '14.2857143%',

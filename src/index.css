@@ -38,7 +38,7 @@ code {
 }
 
 .facebookLogin {
-  @apply text-facebookBlue;
+  @apply text-facebookBlue cursor-pointer;
 }
 
 a {
@@ -47,4 +47,8 @@ a {
 
 .FatLink {
   @apply font-bold text-instadarkGray;
+}
+
+.notification {
+  @apply text-notificationGreen;
 }

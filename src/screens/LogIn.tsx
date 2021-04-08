@@ -14,11 +14,18 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { logIn } from '../__generated__/logIn';
 import { logUserIn } from '../apollo';
+import { useLocation } from 'react-router';
 
 interface IForm {
   username: string;
   password: string;
   result: string;
+}
+
+interface LocationState {
+  message: string;
+  username: string;
+  password: string;
 }
 
 const LOGIN_MUTATION = gql`
@@ -32,6 +39,7 @@ const LOGIN_MUTATION = gql`
 `;
 
 const LogIn = () => {
+  const location = useLocation<LocationState>();
   const {
     register,
     handleSubmit,
@@ -42,6 +50,10 @@ const LogIn = () => {
     clearErrors,
   } = useForm<IForm>({
     mode: 'onChange',
+    defaultValues: {
+      username: location?.state?.username || '',
+      password: location?.state?.password || '',
+    },
   });
   const onCompleted = (data: logIn) => {
     const {
@@ -81,6 +93,7 @@ const LogIn = () => {
         <div>
           <FontAwesomeIcon icon={faInstagram} size="4x" />
         </div>
+        <div className="notification">{location?.state?.message}</div>
         <form
           className="mt-9 w-full allCenter flex-col"
           onSubmit={handleSubmit(onSubmitValid)}

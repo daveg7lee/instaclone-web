@@ -13,7 +13,7 @@ export const logUserIn = (token: string) => {
 
 export const logUserOut = () => {
   localStorage.removeItem(TOKEN);
-  isLoggedInVar(false);
+  window.location.reload();
 };
 
 export const client = new ApolloClient({

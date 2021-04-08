@@ -54,10 +54,12 @@ const SignUp = () => {
     formState,
     setError,
     clearErrors,
+    getValues,
   } = useForm<IForm>({
     mode: 'onChange',
   });
   const onCompleted = (data: createAccount) => {
+    const { username, password } = getValues();
     const {
       createAccount: { success, error },
     } = data;
@@ -66,7 +68,11 @@ const SignUp = () => {
         message: error,
       });
     }
-    history.push(routes.home);
+    history.push(routes.home, {
+      message: 'Account Created, Please Log In',
+      username,
+      password,
+    });
   };
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
     onCompleted,
