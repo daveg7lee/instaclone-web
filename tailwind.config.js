@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        instaGray: '#fafafa',
+        bgColor: '#fafafa',
         instadarkGray: 'rgb(142, 142, 142)',
         accent: '#0095f6',
         facebookBlue: '#385285',
@@ -34,6 +34,9 @@ module.exports = {
         6: '6px',
         8: '8px',
         9: '9px',
+      },
+      maxWidth: {
+        instaWidth: '930px',
       },
     },
   },
