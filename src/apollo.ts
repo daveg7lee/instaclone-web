@@ -1,6 +1,12 @@
-import { ApolloClient, InMemoryCache, makeVar } from '@apollo/client';
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  makeVar,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-const TOKEN = 'token';
+const TOKEN = 'TOKEN';
 
 const isLoggedIn = Boolean(localStorage.getItem(TOKEN));
 
@@ -16,7 +22,23 @@ export const logUserOut = () => {
   window.location.reload();
 };
 
+const httpLink = createHttpLink({
+  uri:
+    process.env.NODE_ENV === 'production'
+      ? 'https://instaclone-backend-sexy.herokuapp.com/graphql'
+      : 'http://localhost:4000/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      token: localStorage.getItem(TOKEN),
+    },
+  };
+});
+
 export const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
