@@ -3,10 +3,14 @@ import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faCompass, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import { isLoggedInVar } from '../apollo';
+import useUser from '../hooks/useUser';
+import routes from '../routes';
 
 function Header() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const loggedInUser = useUser();
   return (
     <header className="w-full border-b border-borderColor bg-bgColor py-4 allCenter">
       <div className="max-w-instaWidth w-full flex justify-between items-center">
@@ -26,7 +30,11 @@ function Header() {
                 <FontAwesomeIcon icon={faUser} size="lg" />
               </span>
             </>
-          ) : null}
+          ) : (
+            <Link to={routes.home}>
+              <span className="blueButton font-semibold px-4">Log In</span>
+            </Link>
+          )}
         </div>
       </div>
     </header>

@@ -137,7 +137,7 @@ const LogIn = () => {
             value={loading ? 'Loading...' : 'Log In'}
             type="submit"
             disabled={!formState.isValid || loading}
-            className="blueButton mt-3 py-2 font-semibold"
+            className="blueButton mt-3 font-semibold"
           />
           <FormError message={errors?.result?.message} />
         </form>

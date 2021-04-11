@@ -30,7 +30,7 @@ code {
 }
 
 .blueButton {
-  @apply w-full focus:ring-2 focus:ring-accent focus:ring-opacity-50 outline-none rounded bg-accent text-white text-center cursor-pointer disabled:opacity-50;
+  @apply w-full focus:ring-2 focus:ring-accent focus:ring-opacity-50 outline-none rounded bg-accent text-white text-center cursor-pointer disabled:opacity-50 py-2;
 }
 
 .seperator {
