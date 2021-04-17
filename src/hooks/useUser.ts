@@ -21,6 +21,7 @@ const useUser = () => {
       logUserOut();
     }
   }, [data]);
+  return { data };
 };
 
 export default useUser;
