@@ -60,3 +60,7 @@ a {
 .fat-text {
   @apply font-semibold;
 }
+
+.hover-opacity {
+  @apply hover:text-opacity-60 transition-all duration-200;
+}

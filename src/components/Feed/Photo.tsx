@@ -24,7 +24,9 @@ const TOGGLE_LIKE_MUTATION = gql`
   }
 `;
 
-const Photo = ({ photo: { id, user, file, isLiked, likes } }: FeedProps) => {
+const Photo = ({
+  photo: { id, user, file, isLiked, likes, caption, commentNumbers, comments },
+}: FeedProps) => {
   const updateToggleLike = (cache: DataProxy, result: any) => {
     const {
       data: {
@@ -37,10 +39,12 @@ const Photo = ({ photo: { id, user, file, isLiked, likes } }: FeedProps) => {
         fragment: gql`
           fragment BSName on Photo {
             isLiked
+            likes
           }
         `,
         data: {
           isLiked: !isLiked,
+          likes: isLiked ? likes - 1 : likes + 1,
         },
       });
     }
@@ -65,7 +69,9 @@ const Photo = ({ photo: { id, user, file, isLiked, likes } }: FeedProps) => {
             <div className="mr-3 cursor-pointer" onClick={onClick}>
               <FontAwesomeIcon
                 icon={isLiked ? SolidHeart : faHeart}
-                className={isLiked ? 'text-red-500 text-xl' : 'text-xl'}
+                className={
+                  isLiked ? 'text-red-500 text-xl hover-opacity' : 'text-xl'
+                }
               />
             </div>
             <div className="mr-3">
@@ -82,6 +88,15 @@ const Photo = ({ photo: { id, user, file, isLiked, likes } }: FeedProps) => {
         <span className="fat-text mt-4 block">
           {likes === 1 ? '1 like' : `${likes} likes`}
         </span>
+        <div className="mt-5">
+          <div>
+            <span className="fat-text">{user.username}</span>
+            <span className="ml-3">{caption}</span>
+          </div>
+          <span className="opacity-70 text-xs py-3 block font-semibold">
+            {commentNumbers === 1 ? '1 comment' : `${commentNumbers} comments`}
+          </span>
+        </div>
       </div>
     </div>
   );
