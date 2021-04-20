@@ -8,21 +8,22 @@
 // ====================================================
 
 export interface seeFeed_seeFeed_user {
-  __typename: 'User';
+  __typename: "User";
   username: string;
-  avatar: string | undefined;
+  avatar: string | null;
 }
 
 export interface seeFeed_seeFeed {
-  __typename: 'Photo';
+  __typename: "Photo";
   id: number;
   user: seeFeed_seeFeed_user;
   file: string;
-  caption: string | undefined;
+  caption: string | null;
   likes: number;
   comments: number;
   createdAt: string;
   isMine: boolean;
+  isLiked: boolean;
 }
 
 export interface seeFeed {

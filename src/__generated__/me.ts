@@ -8,11 +8,11 @@
 // ====================================================
 
 export interface me_me {
-  __typename: 'User';
+  __typename: "User";
   username: string;
-  avatar: string | undefined;
+  avatar: string | null;
 }
 
 export interface me {
-  me: me_me | undefined;
+  me: me_me | null;
 }

@@ -2,7 +2,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface AvatarProps {
-  url: string | undefined;
+  url: string | null;
   size?:
     | '0'
     | '0.5'
