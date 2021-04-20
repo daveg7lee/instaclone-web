@@ -2,7 +2,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface AvatarProps {
-  url: string;
+  url: string | undefined;
 }
 
 const Avatar = ({ url = '' }: AvatarProps) => (
