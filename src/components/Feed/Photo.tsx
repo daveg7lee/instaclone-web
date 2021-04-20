@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { DataProxy, useMutation } from '@apollo/client';
 import {
   faBookmark,
   faComment,
@@ -25,8 +25,29 @@ const TOGGLE_LIKE_MUTATION = gql`
 `;
 
 const Photo = ({ photo: { id, user, file, isLiked, likes } }: FeedProps) => {
+  const updateToggleLike = (cache: DataProxy, result: any) => {
+    const {
+      data: {
+        toggleLike: { success },
+      },
+    } = result;
+    if (success) {
+      cache.writeFragment({
+        id: `Photo:${id}`,
+        fragment: gql`
+          fragment BSName on Photo {
+            isLiked
+          }
+        `,
+        data: {
+          isLiked: !isLiked,
+        },
+      });
+    }
+  };
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE_MUTATION, {
     variables: { id },
+    update: updateToggleLike,
   });
   const onClick = async () => {
     await toggleLikeMutation();
