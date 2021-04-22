@@ -17,6 +17,16 @@ code {
     monospace;
 }
 
+mark {
+  background-color: inherit;
+  color: #0095f6;
+  cursor: pointer;
+}
+
+mark:hover {
+  text-decoration: underline;
+}
+
 .baseBox {
   @apply bg-white border-borderColor border w-full;
 }
