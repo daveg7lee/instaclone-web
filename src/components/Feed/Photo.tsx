@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import { seeFeed_seeFeed } from '../../__generated__/seeFeed';
 import Avatar from '../Avatar';
+import Comments from './Comments';
 
 interface FeedProps {
   photo: seeFeed_seeFeed;
@@ -88,15 +89,12 @@ const Photo = ({
         <span className="fat-text mt-4 block">
           {likes === 1 ? '1 like' : `${likes} likes`}
         </span>
-        <div className="mt-5">
-          <div>
-            <span className="fat-text">{user.username}</span>
-            <span className="ml-3">{caption}</span>
-          </div>
-          <span className="opacity-70 text-xs py-3 block font-semibold">
-            {commentNumbers === 1 ? '1 comment' : `${commentNumbers} comments`}
-          </span>
-        </div>
+        <Comments
+          author={user.username}
+          caption={caption}
+          commentNumbers={commentNumbers}
+          comments={comments}
+        />
       </div>
     </div>
   );
