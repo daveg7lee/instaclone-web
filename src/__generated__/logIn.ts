@@ -11,7 +11,7 @@ export interface logIn_logIn {
   __typename: 'MutationResponse';
   success: boolean;
   error: string | undefined;
-  token: string | undefined;
+  token: string | null;
 }
 
 export interface logIn {

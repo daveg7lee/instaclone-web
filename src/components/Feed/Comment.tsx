@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface CommentProps {
   author: string | undefined;
-  payload: string | undefined;
+  payload: string | null;
 }
 
 const Comment = ({ author, payload }: CommentProps) => {

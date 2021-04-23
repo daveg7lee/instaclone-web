@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface me_me {
-  __typename: "User";
+  __typename: 'User';
   username: string;
   avatar: string | null;
 }

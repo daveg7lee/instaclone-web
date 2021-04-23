@@ -96,6 +96,7 @@ const Photo = ({
           caption={caption}
           commentNumbers={commentNumbers}
           comments={comments}
+          photoId={id}
         />
       </div>
     </div>
