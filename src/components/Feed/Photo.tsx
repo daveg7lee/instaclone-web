@@ -8,6 +8,7 @@ import {
 import { faHeart as SolidHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
+import { Link } from 'react-router-dom';
 import { seeFeed_seeFeed } from '../../__generated__/seeFeed';
 import Avatar from '../Avatar';
 import Comments from './Comments';
@@ -62,8 +63,12 @@ const Photo = ({
   return (
     <div className="bg-white border border-borderColor mb-16 max-w-2xl rounded">
       <div className="p-4 flex items-center border-b border-borderColor">
-        <Avatar url={user.avatar} size="8" />
-        <span className="fat-text ml-4">{user.username}</span>
+        <Link to={`/users/${user.username}`} className="text-black">
+          <Avatar url={user.avatar} size="8" />
+        </Link>
+        <Link to={`/users/${user.username}`} className="text-black">
+          <span className="fat-text ml-4">{user.username}</span>
+        </Link>
       </div>
       <img src={file} className="min-w-full max-w-full" alt="Post" />
       <div className="py-3 px-4">

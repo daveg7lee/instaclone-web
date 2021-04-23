@@ -46,7 +46,9 @@ const Comment = ({ author, payload, id, isMine, photoId }: CommentProps) => {
   });
   return (
     <div className="mb-2">
-      <span className="fat-text">{author}</span>
+      <Link to={`/users/${author}`} className="text-black">
+        <span className="fat-text">{author}</span>
+      </Link>
       <span className="ml-3">
         {payload?.split(' ').map((word, index) =>
           /#[\w]+/.test(word) ? (
@@ -59,7 +61,7 @@ const Comment = ({ author, payload, id, isMine, photoId }: CommentProps) => {
             <React.Fragment key={index}>
               {/@[\w]+/.test(word) ? (
                 <>
-                  <Link to={`/user/${word}`} className="font-normal">
+                  <Link to={`/users/${word}`} className="font-normal">
                     {word}
                   </Link>{' '}
                 </>

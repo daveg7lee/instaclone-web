@@ -7,6 +7,7 @@ import routes from './routes';
 import Home from './screens/Home';
 import LogIn from './screens/LogIn';
 import NotFound from './screens/NotFound';
+import Profile from './screens/Profile';
 import SignUp from './screens/SignUp';
 
 function App() {
@@ -24,6 +25,11 @@ function App() {
               ) : (
                 <LogIn />
               )}
+            </Route>
+            <Route path="/users/:username">
+              <Layout>
+                <Profile />
+              </Layout>
             </Route>
             {!isLoggedIn && (
               <Route path={routes.signUp}>

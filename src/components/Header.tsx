@@ -27,9 +27,9 @@ function Header() {
               <span className="icon">
                 <FontAwesomeIcon icon={faCompass} size="lg" />
               </span>
-              <span className="icon">
+              <Link to={`/users/${data?.me?.username}`} className="icon">
                 <Avatar url={data?.me?.avatar} />
-              </span>
+              </Link>
             </div>
           ) : (
             <Link to={routes.home}>
