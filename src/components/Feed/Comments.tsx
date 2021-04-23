@@ -106,9 +106,12 @@ const Comments = ({
         if (comment) {
           return (
             <Comment
+              id={comment.id}
               key={comment.id}
               author={comment.user.username}
               payload={comment.payload}
+              isMine={comment.isMine}
+              photoId={photoId}
             />
           );
         }

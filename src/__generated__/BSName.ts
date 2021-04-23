@@ -7,8 +7,17 @@
 // GraphQL fragment: BSName
 // ====================================================
 
+export interface BSName_user {
+  __typename: "User";
+  username: string;
+  avatar: string | null;
+}
+
 export interface BSName {
-  __typename: "Photo";
-  isLiked: boolean;
-  likes: number;
+  __typename: "Comment";
+  id: number;
+  createdAt: string;
+  isMine: boolean;
+  payload: string;
+  user: BSName_user;
 }
