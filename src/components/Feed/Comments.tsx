@@ -46,7 +46,7 @@ const Comments = ({
     const { payload } = getValues();
     setValue('payload', '');
     if (success && userData?.me) {
-      const newComment = {
+      const commentData = {
         __typename: 'Comment',
         createdAt: Date.now(),
         id,
@@ -56,6 +56,21 @@ const Comments = ({
           ...userData.me,
         },
       };
+      const newComment = cache.writeFragment({
+        data: commentData,
+        fragment: gql`
+          fragment BSName on Comment {
+            id
+            createdAt
+            isMine
+            payload
+            user {
+              username
+              avatar
+            }
+          }
+        `,
+      });
       cache.modify({
         id: `Photo:${photoId}`,
         fields: {
