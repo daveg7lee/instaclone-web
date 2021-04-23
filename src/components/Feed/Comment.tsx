@@ -14,10 +14,7 @@ const Comment = ({ author, payload }: CommentProps) => {
         {payload?.split(' ').map((word, index) =>
           /#[\w]+/.test(word) ? (
             <React.Fragment key={index}>
-              <Link
-                to={`/hashtags/${word}`}
-                className="text-accent hover:underline cursor-pointer font-normal"
-              >
+              <Link to={`/hashtags/${word}`} className="font-normal">
                 {word}
               </Link>{' '}
             </React.Fragment>
@@ -25,10 +22,7 @@ const Comment = ({ author, payload }: CommentProps) => {
             <React.Fragment key={index}>
               {/@[\w]+/.test(word) ? (
                 <>
-                  <Link
-                    to={`/user/${word}`}
-                    className="text-accent hover:underline cursor-pointer font-normal"
-                  >
+                  <Link to={`/user/${word}`} className="font-normal">
                     {word}
                   </Link>{' '}
                 </>
