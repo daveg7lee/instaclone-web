@@ -1,5 +1,6 @@
 import { useMutation, gql } from '@apollo/client';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import useUser from '../../hooks/useUser';
 import { seeFeed_seeFeed_comments } from '../../__generated__/seeFeed';
 import Comment from './Comment';
 
@@ -20,6 +21,7 @@ const CREATE_COMMENT_MUTATION = gql`
     createComment(photoId: $photoId, payload: $payload) {
       success
       error
+      id
     }
   }
 `;
@@ -31,10 +33,46 @@ const Comments = ({
   comments,
   photoId,
 }: CommentsProps) => {
-  const [createCommentMutation, { loading }] = useMutation(
-    CREATE_COMMENT_MUTATION
-  );
-  const { register, handleSubmit, setValue } = useForm<IForm>();
+  const { data: userData } = useUser();
+  const { register, handleSubmit, setValue, getValues } = useForm<IForm>();
+  const createCommentUpdate = (
+    cache: any,
+    {
+      data: {
+        createComment: { success, id },
+      },
+    }: any
+  ) => {
+    const { payload } = getValues();
+    setValue('payload', '');
+    if (success && userData?.me) {
+      const newComment = {
+        __typename: 'Comment',
+        createdAt: Date.now(),
+        id,
+        isMine: true,
+        payload,
+        user: {
+          ...userData.me,
+        },
+      };
+      cache.modify({
+        id: `Photo:${photoId}`,
+        fields: {
+          comments(prev: seeFeed_seeFeed_comments[]) {
+            return [...prev, newComment];
+          },
+          commentNumbers(prev: number) {
+            return prev + 1;
+          },
+        },
+      });
+    }
+  };
+  const [
+    createCommentMutation,
+    { loading },
+  ] = useMutation(CREATE_COMMENT_MUTATION, { update: createCommentUpdate });
   const onValid: SubmitHandler<IForm> = async ({ payload }) => {
     if (loading) {
       return;
@@ -42,7 +80,6 @@ const Comments = ({
     createCommentMutation({
       variables: { photoId, payload },
     });
-    setValue('payload', '');
   };
   return (
     <div className="mt-5">
@@ -62,13 +99,14 @@ const Comments = ({
         }
         return null;
       })}
-      <div>
+      <div className="mt-2.5 pt-3.5 pb-2.5 border-t border-borderColor">
         <form onSubmit={handleSubmit(onValid)}>
           <input
             type="text"
             placeholder="Write a comment..."
             name="payload"
             ref={register({ required: 'payload is required' })}
+            className="w-full focus:outline-none"
           />
         </form>
       </div>

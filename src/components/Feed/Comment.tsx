@@ -8,7 +8,7 @@ interface CommentProps {
 
 const Comment = ({ author, payload }: CommentProps) => {
   return (
-    <div>
+    <div className="mb-2">
       <span className="fat-text">{author}</span>
       <span className="ml-3">
         {payload?.split(' ').map((word, index) =>
