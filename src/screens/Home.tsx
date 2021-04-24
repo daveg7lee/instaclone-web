@@ -3,34 +3,26 @@ import gql from 'graphql-tag';
 import Photo from '../components/Feed/Photo';
 import PageTitle from '../components/PageTitle';
 import { seeFeed_seeFeed } from '../__generated__/seeFeed';
+import { COMMENT_FRAGMENT, PHOTO_FRAGMENT } from '../fragments';
 
 const FEED_QUERY = gql`
   query seeFeed {
     seeFeed {
-      id
+      ...PhotoFragment
       user {
         username
         avatar
       }
-      file
       caption
-      likes
-      commentNumbers
       comments {
-        id
-        user {
-          username
-          avatar
-        }
-        payload
-        isMine
-        createdAt
+        ...CommentFragment
       }
       createdAt
-      isLiked
       isMine
     }
   }
+  ${PHOTO_FRAGMENT}
+  ${COMMENT_FRAGMENT}
 `;
 
 const Home = () => {

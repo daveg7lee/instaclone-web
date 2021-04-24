@@ -16,7 +16,9 @@ function Header() {
     <header className="w-full border-b border-borderColor bg-bgColor py-4 allCenter">
       <div className="max-w-instaWidth w-full flex justify-between items-center">
         <div>
-          <FontAwesomeIcon icon={faInstagram} size="2x" />
+          <Link to={routes.home} className="text-black">
+            <FontAwesomeIcon icon={faInstagram} size="2x" />
+          </Link>
         </div>
         <div>
           {isLoggedIn ? (
