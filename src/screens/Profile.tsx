@@ -2,6 +2,7 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router';
+import useUser from '../hooks/useUser';
 import PageTitle from '../components/PageTitle';
 import { PHOTO_FRAGMENT } from '../fragments';
 import {
@@ -50,6 +51,7 @@ const SEE_PROFILE_QUERY = gql`
 
 const Profile = () => {
   const { username } = useParams<paramsType>();
+  const { data: userData } = useUser();
   const { data, loading } = useQuery(SEE_PROFILE_QUERY, {
     variables: {
       username,
@@ -75,6 +77,14 @@ const Profile = () => {
         },
       },
     });
+    cache.modify({
+      id: `User:${userData?.me?.username}`,
+      fields: {
+        totalFollowers(prev: number) {
+          return prev - 1;
+        },
+      },
+    });
   };
   const followUserUpdate = (cache: any, result: any) => {
     const {
@@ -91,6 +101,14 @@ const Profile = () => {
         isFollowing() {
           return true;
         },
+        totalFollowers(prev: number) {
+          return prev + 1;
+        },
+      },
+    });
+    cache.modify({
+      id: `User:${userData?.me?.username}`,
+      fields: {
         totalFollowers(prev: number) {
           return prev + 1;
         },
