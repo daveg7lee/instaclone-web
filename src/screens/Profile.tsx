@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router';
@@ -12,6 +12,21 @@ import {
 interface paramsType {
   username: string;
 }
+
+const FOLLOW_USER_MUTATION = gql`
+  mutation followUser($username: String!) {
+    followUser(username: $username) {
+      success
+    }
+  }
+`;
+const UNFOLLOW_USER_MUTATION = gql`
+  mutation unfollowUser($username: String!) {
+    unfollowUser(username: $username) {
+      success
+    }
+  }
+`;
 
 const SEE_PROFILE_QUERY = gql`
   query seeProfile($username: String!) {
@@ -40,15 +55,43 @@ const Profile = () => {
       username,
     },
   });
+  const [unfollowUser] = useMutation(UNFOLLOW_USER_MUTATION, {
+    variables: {
+      username,
+    },
+  });
+  const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
+    variables: {
+      username,
+    },
+  });
   const getButton = (seeProfile: seeProfile_seeProfile) => {
     const { isMe, isFollowing } = seeProfile;
     if (isMe) {
-      return <span className="ml-2.5 mt-0">Edit Profile</span>;
+      return (
+        <span className="blueButton ml-2.5 mt-0 cursor-pointer">
+          Edit Profile
+        </span>
+      );
     }
     if (isFollowing) {
-      return <span className="ml-2.5 mt-0">Unfollow</span>;
+      return (
+        <span
+          className="blueButton ml-2.5 mt-0 cursor-pointer"
+          onClick={() => unfollowUser()}
+        >
+          Unfollow
+        </span>
+      );
     } else {
-      return <span className="ml-2.5 mt-0">Follow</span>;
+      return (
+        <span
+          className="blueButton ml-2.5 mt-0 cursor-pointer"
+          onClick={() => followUser()}
+        >
+          Follow
+        </span>
+      );
     }
   };
   return (
@@ -65,7 +108,7 @@ const Profile = () => {
           className="ml-12 h-40 w-40 rounded-full mr-36 bg-gray-700"
         />
         <div>
-          <div className="row">
+          <div className="row items-center">
             <h3 className="text-2xl">{data?.seeProfile?.username}</h3>
             {data?.seeProfile ? getButton(data.seeProfile) : null}
           </div>
