@@ -29,7 +29,7 @@ const Home = () => {
   const { data } = useQuery(FEED_QUERY);
   return (
     <div>
-      <PageTitle title="Home | Instaclone" />
+      <PageTitle title="Home" />
       {data?.seeFeed?.map((photo: seeFeed_seeFeed) => (
         <Photo photo={photo} key={photo.id} />
       ))}

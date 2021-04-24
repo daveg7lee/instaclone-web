@@ -2,8 +2,12 @@ import { gql, useQuery } from '@apollo/client';
 import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router';
+import PageTitle from '../components/PageTitle';
 import { PHOTO_FRAGMENT } from '../fragments';
-import { seeProfile_seeProfile_photos } from '../__generated__/seeProfile';
+import {
+  seeProfile_seeProfile,
+  seeProfile_seeProfile_photos,
+} from '../__generated__/seeProfile';
 
 interface paramsType {
   username: string;
@@ -31,13 +35,29 @@ const SEE_PROFILE_QUERY = gql`
 
 const Profile = () => {
   const { username } = useParams<paramsType>();
-  const { data } = useQuery(SEE_PROFILE_QUERY, {
+  const { data, loading } = useQuery(SEE_PROFILE_QUERY, {
     variables: {
       username,
     },
   });
+  const getButton = (seeProfile: seeProfile_seeProfile) => {
+    const { isMe, isFollowing } = seeProfile;
+    if (isMe) {
+      return <span className="ml-2.5 mt-0">Edit Profile</span>;
+    }
+    if (isFollowing) {
+      return <span className="ml-2.5 mt-0">Unfollow</span>;
+    } else {
+      return <span className="ml-2.5 mt-0">Follow</span>;
+    }
+  };
   return (
     <div>
+      <PageTitle
+        title={
+          loading ? 'Loading...' : `${data?.seeProfile?.username}'s Profile`
+        }
+      />
       <div className="flex">
         <img
           src={data?.seeProfile?.avatar}
@@ -47,6 +67,7 @@ const Profile = () => {
         <div>
           <div className="row">
             <h3 className="text-2xl">{data?.seeProfile?.username}</h3>
+            {data?.seeProfile ? getButton(data.seeProfile) : null}
           </div>
           <div className="row">
             <ul className="flex">
@@ -79,6 +100,7 @@ const Profile = () => {
           <div
             className="relative bg-cover"
             style={{ backgroundImage: `url(${photo.file})` }}
+            key={photo.id}
           >
             <div className="absolute allCenter w-full h-full bg-black bg-opacity-50 text-white opacity-0 hover:opacity-100 transition-all duration-100">
               <span className="text-lg flex items-center mx-1">

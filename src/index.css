@@ -66,5 +66,5 @@ a {
 }
 
 .row {
-  @apply mb-5 text-base;
+  @apply mb-5 text-base flex;
 }
