@@ -38,6 +38,9 @@ module.exports = {
       maxWidth: {
         instaWidth: '930px',
       },
+      gridAutoRows: {
+        '290px': '290px',
+      },
     },
   },
   variants: {

@@ -23,9 +23,9 @@ function Header() {
         <div>
           {isLoggedIn ? (
             <div className="flex items-center">
-              <span className="icon">
+              <Link to={routes.home} className="icon text-black">
                 <FontAwesomeIcon icon={faHome} size="lg" />
-              </span>
+              </Link>
               <span className="icon">
                 <FontAwesomeIcon icon={faCompass} size="lg" />
               </span>

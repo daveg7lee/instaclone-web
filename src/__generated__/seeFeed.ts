@@ -31,14 +31,14 @@ export interface seeFeed_seeFeed_comments {
 export interface seeFeed_seeFeed {
   __typename: "Photo";
   id: number;
-  user: seeFeed_seeFeed_user;
   file: string;
-  caption: string | null;
   likes: number;
   commentNumbers: number;
+  isLiked: boolean;
+  user: seeFeed_seeFeed_user;
+  caption: string | null;
   comments: (seeFeed_seeFeed_comments | null)[] | null;
   createdAt: string;
-  isLiked: boolean;
   isMine: boolean;
 }
 

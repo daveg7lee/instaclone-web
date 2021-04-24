@@ -10,7 +10,6 @@
 export interface deleteComment_deleteComment {
   __typename: "MutationResponse";
   success: boolean;
-  error: string | null;
 }
 
 export interface deleteComment {
@@ -18,5 +17,5 @@ export interface deleteComment {
 }
 
 export interface deleteCommentVariables {
-  id?: number | null;
+  id: number;
 }

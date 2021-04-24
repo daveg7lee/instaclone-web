@@ -64,3 +64,7 @@ a {
 .hover-opacity {
   @apply hover:text-opacity-60 transition-all duration-200;
 }
+
+.row {
+  @apply mb-5 text-base;
+}
