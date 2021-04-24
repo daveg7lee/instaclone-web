@@ -55,15 +55,59 @@ const Profile = () => {
       username,
     },
   });
+  const unfollowUserUpdate = (cache: any, result: any) => {
+    const {
+      data: {
+        unfollowUser: { success },
+      },
+    } = result;
+    if (!success) {
+      return;
+    }
+    cache.modify({
+      id: `User:${username}`,
+      fields: {
+        isFollowing() {
+          return false;
+        },
+        totalFollowers(prev: number) {
+          return prev - 1;
+        },
+      },
+    });
+  };
+  const followUserUpdate = (cache: any, result: any) => {
+    const {
+      data: {
+        followUser: { success },
+      },
+    } = result;
+    if (!success) {
+      return;
+    }
+    cache.modify({
+      id: `User:${username}`,
+      fields: {
+        isFollowing() {
+          return true;
+        },
+        totalFollowers(prev: number) {
+          return prev + 1;
+        },
+      },
+    });
+  };
   const [unfollowUser] = useMutation(UNFOLLOW_USER_MUTATION, {
     variables: {
       username,
     },
+    update: unfollowUserUpdate,
   });
   const [followUser] = useMutation(FOLLOW_USER_MUTATION, {
     variables: {
       username,
     },
+    update: followUserUpdate,
   });
   const getButton = (seeProfile: seeProfile_seeProfile) => {
     const { isMe, isFollowing } = seeProfile;
