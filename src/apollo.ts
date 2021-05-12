@@ -25,7 +25,7 @@ export const logUserOut = () => {
 const httpLink = createHttpLink({
   uri:
     process.env.NODE_ENV === 'production'
-      ? 'https://instaclone-backend-sexy.herokuapp.com/graphql'
+      ? 'https://instaclone-backend-dics.herokuapp.com/graphql'
       : 'http://localhost:4000/graphql',
 });
 
